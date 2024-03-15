@@ -1,0 +1,11 @@
+<div class="renderPage">
+    <div class="griddiv">
+        <button class="navigate" (click)="showPrevResume()">Previous</button>
+        <div class="resumeeditor">
+        <ng-container *ngIf="formdata">
+            <app-edit-page [resultData]="sendData" [formCount]="count"></app-edit-page>
+        </ng-container>
+        </div>
+        <button class="navigate" (click)="showNextResume()">Next</button>     
+    </div>
+</div>

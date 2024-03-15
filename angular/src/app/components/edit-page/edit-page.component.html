@@ -1,0 +1,175 @@
+
+  <section class="container" [ngClass]="formStatus">
+    <header>{{formdata['name']}} 's Resume</header>
+    <!-- <button type="button" (click)="patchfunc()">
+      Show Extracted Data
+    </button> -->
+    
+    <form class="form" [formGroup]="reactiveForm" (ngSubmit)="OnFormSubmitted()">
+      <div class="column">
+        <div class="input-box">
+          <input type="text" placeholder="Name" formControlName="name" />
+          <small *ngIf="reactiveForm.get('name')?.errors?.['required'] && reactiveForm.get('name')?.touched">
+            *Name is a required field.
+          </small>
+        </div>
+      </div>
+
+      <div class="input-box">
+        <input type="text" placeholder="Contact No." formControlName="contact" />
+        <small *ngIf="reactiveForm.get('contact')?.invalid && reactiveForm.get('contact')?.touched">
+          *Entered Contact Number is not valid.
+        </small>
+      </div>
+
+      <div class="input-box">
+        <input type="text" placeholder="Email" formControlName="email" />
+        <small *ngIf="reactiveForm.get('email')?.invalid && reactiveForm.get('email')?.touched">
+          *Entered Email is not valid.
+        </small>
+      </div>
+
+      <div class="input-box" formArrayName="media">
+        <div class="column" *ngFor="let exp of reactiveForm.get('media')['controls']; let i = index">
+          <input type="text" placeholder="Media Id" [formControlName]="i" />
+          <button type="button" class="btn-add-delete" (click)="DeleteMediaProfile(i)">
+            Delete
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn-add-delete" (click)="AddMediaProfile()">
+        Add MediaProfile
+      </button>
+
+      <div class="input-box" formArrayName="hobbies">
+        <h4>Hobbies</h4>
+        <div class="column" *ngFor="let control of reactiveForm.get('hobbies')['controls'] ; let i =index">
+          <input type="text" placeholder="Add hobbies..." [formControlName]="i">
+          <button type="button" class="btn-add-delete" (click)="Deletehobbies(i)">
+            Delete
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn-add-delete" (click)="Addhobbies()">
+        Add Hobbies
+      </button>
+
+      <div class="skills">
+        <h4>Skills</h4>
+        <div class="input-box" formArrayName="technicalskills">
+          <label>Technical Skills</label>
+          <div class="column" *ngFor="let control of reactiveForm.get('technicalskills')['controls'] ; let i =index">
+            <input type="text" placeholder="Technical Skills..." [formControlName]="i">
+            <button type="button" class="btn-add-delete" (click)="DeleteTechnicalSkills(i)">
+              Delete
+            </button>
+          </div>
+        </div>
+        <button type="button" class="btn-add-delete" (click)="AddTechnicalSkills()">
+          Add Technical Skills
+        </button>
+
+        <div class="input-box" formArrayName="interpersonalskills">
+          <label>Interpersonal Skills</label>
+          <div class="column"
+            *ngFor="let control of reactiveForm.get('interpersonalskills')['controls'] ; let i =index">
+            <input type="text" placeholder="Interpersonal Skills..." [formControlName]="i">
+            <button type="button" class="btn-add-delete" (click)="DeleteInterpersonalSkills(i)">
+              Delete
+            </button>
+          </div>
+        </div>
+        <button type="button" class="btn-add-delete" (click)="AddInterpersonalSkills()">
+          Add Interpersonal Skills
+        </button>
+
+        <div class="input-box" formArrayName="areaofinterest">
+          <label>Area Of Interest</label>
+          <div class="column" *ngFor="let control of reactiveForm.get('areaofinterest')['controls'] ; let i =index">
+            <input type="text" placeholder="Areas Of Interest..." [formControlName]="i">
+            <button type="button" class="btn-add-delete" (click)="DeleteAreaOfInterest(i)">
+              Delete
+            </button>
+          </div>
+        </div>
+        <button type="button" class="btn-add-delete" (click)="AddAreaOfInterest()">
+          Add Area of Interest
+        </button>
+      </div>
+
+      <div class="input-box" formArrayName="experience">
+        <div class="experience" *ngFor="let exp of reactiveForm.get('experience')['controls']; let i = index"
+          [formGroupName]="i">
+          <h4>Experience {{i + 1}}</h4>
+          <input type="text" placeholder="Company Name" formControlName="company" />
+          <div class="column">
+            <input type="text" placeholder="Designation" formControlName="designation">
+            <input type="text" placeholder="Duartion" formControlName="duration" />
+          </div>
+          <input type="text" placeholder="Job Description" formControlName="description">
+          <button type="button" class="btn-add-delete" (click)="DeleteExperience(i)">
+            Delete Experience
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn-add-delete" (click)="AddExperience()">
+        Add Experience
+      </button>
+
+      <div class="input-box" formArrayName="projects">
+        <div class="projects" *ngFor="let exp of reactiveForm.get('projects')['controls']; let i = index"
+          [formGroupName]="i">
+          <h4>Project {{i + 1}}</h4>
+          <input type="text" placeholder="Project Name" formControlName="projectname" />
+          <div class="column">
+            <input type="text" placeholder="Client Name" formControlName="client">
+            <input type="text" placeholder="Duartion" formControlName="duration" />
+          </div>
+          <input type="text" placeholder="Project Description" formControlName="description">
+          <button type="button" class="btn-add-delete" (click)="DeleteProjects(i)">
+            Delete Projects
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn-add-delete" (click)="AddProjects()">
+        Add Projects
+      </button>
+
+      <div class="input-box" formArrayName="education">
+        <div class="education" *ngFor="let exp of reactiveForm.get('education')['controls']; let i = index"
+          [formGroupName]="i">
+          <h4>Qualification {{i + 1}}</h4>
+          <input type="text" placeholder="University/School" formControlName="university" />
+          <input type="text" placeholder="Qualification" formControlName="qualification">
+          <div class="column">
+            <input type="text" placeholder="CGPA/Percentage" formControlName="cgpa">
+            <input type="text" placeholder="Year of Completion" formControlName="yearofcompletion" />
+          </div>
+          <button type="button" class="btn-add-delete" (click)="DeleteQualification(i)">
+            Delete Qualification
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn-add-delete" (click)="AddQualification()">
+        Add Qualification
+      </button>
+
+      <div class="input-box" formArrayName="certification">
+        <div class="certification" *ngFor="let exp of reactiveForm.get('certification')['controls']; let i = index"
+          [formGroupName]="i">
+          <h4>Certification {{i + 1}}</h4>
+          <input type="text" placeholder="Certification Name" formControlName="name" />
+          <input type="text" placeholder="Issuer Name" formControlName="issuer">
+          <button type="button" class="btn-add-delete" (click)="DeleteCertification(i)">
+            Delete Certification
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn-add-delete" (click)="AddCertification()">
+        Add Certification
+      </button>
+
+      <input type="submit" value="Submit" class="submit-btn">
+      <!-- [disabled]="!reactiveForm.valid" -->
+    </form>
+  </section>
